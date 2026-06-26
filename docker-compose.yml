@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - JWT_SECRET=intellitots_super_secret_jwt_key_2026
+      - JWT_EXPIRE=24h
+      - DB_DIALECT=sqlite
+      - SQLITE_STORAGE=/usr/src/app/database.sqlite
+    volumes:
+      - db-volume:/usr/src/app
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"
+    environment:
+      - VITE_API_URL=http://localhost:5000/api
+    depends_on:
+      - backend
+
+volumes:
+  db-volume:

@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-950 text-slate-100 font-sans antialiased overflow-x-hidden;
+    background-image: 
+      radial-gradient(at 10% 20%, rgba(124, 58, 237, 0.15) 0px, transparent 50%),
+      radial-gradient(at 90% 10%, rgba(37, 99, 235, 0.12) 0px, transparent 50%),
+      radial-gradient(at 50% 80%, rgba(8, 145, 178, 0.1) 0px, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-semibold tracking-tight;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-950/20;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-800 rounded-full border border-slate-700/30 hover:bg-slate-700/50 transition-colors;
+}
+
+@layer components {
+  /* Glassmorphism Design System */
+  .glass-panel {
+    @apply bg-slate-900/60 backdrop-blur-md border border-slate-800/40 rounded-2xl shadow-xl shadow-black/10 shadow-glass-inset;
+  }
+
+  .glass-card {
+    @apply bg-slate-900/40 backdrop-blur-md border border-slate-800/30 rounded-xl shadow-lg hover:shadow-black/20 hover:border-slate-700/30 transition-all duration-300 shadow-glass-inset;
+  }
+
+  .glass-card-active {
+    @apply bg-slate-900/70 border-brand-purple/40 shadow-glow-purple;
+  }
+
+  .glass-input {
+    @apply w-full bg-slate-950/40 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-purple/60 focus:ring-1 focus:ring-brand-purple/40 transition-all;
+  }
+
+  .glass-select {
+    @apply w-full bg-slate-950/70 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-100 focus:outline-none focus:border-brand-purple/60 transition-all cursor-pointer;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-brand-purple to-brand-blue hover:from-brand-purple/90 hover:to-brand-blue/90 text-white font-semibold py-2.5 px-6 rounded-xl transition-all shadow-glow-purple hover:shadow-glow-purple focus:ring-2 focus:ring-brand-purple/50 active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply bg-slate-900/80 border border-slate-800 hover:border-slate-700/70 hover:bg-slate-800/60 text-slate-200 font-semibold py-2.5 px-6 rounded-xl transition-all active:scale-[0.98];
+  }
+}
+
+
+.text-gradient-purple-blue {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-purple via-brand-blue to-brand-cyan;
+}
+
+.animate-pulse-slow {
+  animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .6;
+  }
+}
