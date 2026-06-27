@@ -34,6 +34,16 @@ const initializeDatabase = async () => {
     // Sync models
     await sequelize.sync({ force: false });
     console.log('[Database] Database tables synced successfully.');
+
+    // Auto-seed if database is empty
+    const { User } = require('./models');
+    const userCount = await User.count();
+    if (userCount === 0) {
+      console.log('[Database] Database is empty. Running auto-seeding...');
+      const seedData = require('./seeders/seed');
+      await seedData();
+      console.log('[Database] Auto-seeding completed successfully.');
+    }
   } catch (error) {
     console.error('[Database] Sync error:', error.message);
   }

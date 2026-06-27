@@ -374,11 +374,20 @@ const seedData = async () => {
 
     console.log('[Seeder] Audit logs created.');
     console.log('[Seeder] DATABASE SEEDING COMPLETED SUCCESSFUL!');
-    process.exit(0);
+    if (require.main === module) {
+      process.exit(0);
+    }
   } catch (error) {
     console.error('[Seeder] Seeding failed with error:', error);
-    process.exit(1);
+    if (require.main === module) {
+      process.exit(1);
+    }
+    throw error;
   }
 };
 
-seedData();
+if (require.main === module) {
+  seedData();
+}
+
+module.exports = seedData;
