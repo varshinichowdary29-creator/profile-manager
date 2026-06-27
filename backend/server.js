@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const { connectDB, sequelize } = require('./config/db');
@@ -15,12 +17,15 @@ const communicationRoutes = require('./routes/communicationRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const classRoutes = require('./routes/classRoutes');
 
-require('dotenv').config();
-
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.CORS_ORIGIN
+    ? process.env.CORS_ORIGIN.split(',')
+    : ['http://localhost:5173', 'http://localhost:3000'],
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   // Configure Axios defaults
-  axios.defaults.baseURL = 'http://localhost:5000/api';
+  axios.defaults.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
   useEffect(() => {
     const checkUserSession = async () => {
@@ -52,7 +52,14 @@ export const AuthProvider = ({ children }) => {
         return userData;
       }
     } catch (err) {
-      const msg = err.response?.data?.message || 'Login failed. Please check your credentials.';
+      console.error('[AuthContext] Login error details:', {
+        message: err.message,
+        code: err.code,
+        response: err.response?.data,
+        status: err.response?.status,
+        baseURL: axios.defaults.baseURL
+      });
+      const msg = err.response?.data?.message || `Login failed: ${err.message || 'Please check your credentials.'}`;
       setError(msg);
       setLoading(false);
       throw new Error(msg);
